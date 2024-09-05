@@ -1,41 +1,38 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db'); // Adjust the path as needed
+const mongoose = require("mongoose");
 
-const Expense = sequelize.define('Expense', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+const expenseSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    max: [50, "Title must have fewer than 50 characters."],
+    required: true,
   },
-  group_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'Groups', // References 'Groups' table
-      key: 'id',
+  author: {
+    type: String,
+    lowercase: true,
+    required: true,
+  },
+  creationDatetime: {
+    type: Date,
+    default: Date.now,
+  },
+  lender: {
+    type: String,
+    lowercase: true,
+    required: true,
+  },
+  borrowers: [
+    {
+      // Each element represents the borrower name and the amount they owe.
+      type: [String, Number],
+      required: true,
     },
-  },
+  ],
   amount: {
-    type: DataTypes.DECIMAL(10, 2),
-    allowNull: false,
+    type: Number,
+    required: true,
+    min: [0, "Amount must be greater than £0."],
+    max: [1000000, "Amount must be less than £1000000."],
   },
-  description: {
-    type: DataTypes.TEXT,
-    allowNull: true,
-  },
-  paid_by: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'Users', // References 'Users' table
-      key: 'id',
-    },
-  },
-  created_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
-}, {
-  tableName: 'expenses',
-  timestamps: false,
 });
 
-module.exports = Expense;
+module.exports = mongoose.model("expense", expenseSchema);

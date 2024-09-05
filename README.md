@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# FairSplit
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+![test](https://github.com/IsaacCheng9/fairsplit/actions/workflows/test.yml/badge.svg)
 
-## Available Scripts
+A bill-splitting application to track shared expenses in a group, developed with
+Node and React.
 
-In the project directory, you can run:
+## Explanation of Transaction Minimisation Algorithm
 
-### `npm start`
+We implemented a greedy algorithm to minimise the number of transactions
+required to settle the debts between all members of a group when the user
+toggles 'Smart Split'. The algorithm runs in O(n log n), where n is the number
+of users – this means that it scales well with the number of users.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+A simple example of this algorithm is shown below. In this example, Alice owes
+Bob £10 and Bob owes Charlie £10 for a total of two transactions. The algorithm
+will suggest that Alice pays Charlie £10 directly, meaning only one transaction
+is required to settle the debts.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![FairSplit - Minimising Transactions@2x Simple](https://user-images.githubusercontent.com/47993930/193157219-12522cfb-f831-48d3-9140-bf1cab09d3b5.png)
 
-### `npm test`
+This may seem like a trivial problem to solve, but it becomes more complex as
+the number of users increases. The following diagram shows a more complex
+example when there are six users with six transactions between them. This is
+reduced to only four transactions by the algorithm.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![FairSplit - Minimising Transactions@2x](https://user-images.githubusercontent.com/47993930/193157096-98f00f14-8548-4093-a213-8e8975a6e036.png)
 
-### `npm run build`
+## Screenshots
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Screenshot 2022-09-30 at 00 23 22](https://user-images.githubusercontent.com/47993930/193159080-2e312e29-a5a1-4f75-afa5-dbd22d45cd9c.jpg)
+![Screenshot 2022-09-30 at 00 23 52](https://user-images.githubusercontent.com/47993930/193159103-97d5e28d-e330-4804-a0b8-d3e3ece88747.jpg)
+![Screenshot 2022-09-30 at 00 27 59](https://user-images.githubusercontent.com/47993930/193159498-3b7ba9de-e972-4425-85ae-34c6abfdb838.jpg)
+![Screenshot 2022-09-30 at 00 29 59](https://user-images.githubusercontent.com/47993930/193159686-2ffb1f4d-e09b-4325-9056-be97ca315a10.jpg) -->
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Installation and Usage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Setting up the MongoDB Database
 
-### `npm run eject`
+1. Create a file in the `server` directory with the name: `.env`
+2. Open the file in a text editor (such as Notepad or TextEdit).
+3. Add the following line to the file, replacing `<uri>` with the URI of your
+   MongoDB database:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```txt
+MONGODB_URI="<uri>"
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Save the file.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Running the Server
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Open a terminal window.
+2. Ensure that you're in the root directory: `fairsplit`
+3. Navigate to the server directory: `cd server`
+4. Install dependencies: `npm install`
+5. Run the server: `node app`
 
-## Learn More
+### Running the Client
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Open a new terminal window (separate to the previous one).
+2. Ensure that you're in the root directory: `fairsplit`
+3. Navigate to the server directory: `cd client`
+4. Install dependencies: `npm install`
+5. Run the client: `npm start`
+6. Browse to the URL provided in the terminal window.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Running Tests
 
-### Code Splitting
+### Running Tests on the Server
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Open a terminal window.
+2. Ensure that you're in the root directory: `fairsplit`
+3. Navigate to the server directory: `cd server`
+4. Install dependencies: `npm install`
+5. Run the unit tests: `npm test`
 
-### Analyzing the Bundle Size
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For more information, please see the [Contributing Guide](CONTRIBUTING.md).
